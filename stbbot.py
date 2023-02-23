@@ -1,8 +1,7 @@
-from gpt_index import SimpleDirectoryReader, GPTListIndex, readers, GPTSimpleVectorIndex, LLMPredictor, PromptHelper
+from gpt_index import GPTSimpleVectorIndex
 from langchain import OpenAI
 import sys
 import os
-from IPython.display import Markdown, display
 
 os.environ['OPENAI_API_KEY']
 
