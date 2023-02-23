@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
 from stbbot import ask_ai
 from gpt_index import GPTSimpleVectorIndex
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app, resources={r"/stbbot": {"origins": "*"}})
 index = GPTSimpleVectorIndex.load_from_disk('index.json')
 
 @app.route("/stbbot", methods=["POST"])
