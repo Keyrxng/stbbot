@@ -1,11 +1,20 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+from stbbot import ask_ai
+from gpt_index import GPTSimpleVectorIndex
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
+index = GPTSimpleVectorIndex.load_from_disk('index.json')
 
-@app.route('/about')
-def about():
-    return 'About'
+@app.route("/stbbot", methods=["POST"])
+
+def stbbot():
+    user_msg = request.json['user_msg']
+    print(f'Received user message: {user_msg}')
+    botResponse = ask_ai(user_msg)
+    print(f'Sending bot response: {botResponse}')
+    response = {'bot_response: ': botResponse}
+    return jsonify({'bot_response: ': botResponse})
+
+if __name__ == "__main__":
+    app.run(debug=True)
