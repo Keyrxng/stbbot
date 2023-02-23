@@ -14,7 +14,6 @@ def stbbot():
     botResponse = ask_ai(user_msg)
     print(f'Sending bot response: {botResponse}')
     response = {'bot_response: ': botResponse}
-    response.headers.add('Access-Control-Allow-Origin', '*')
     return jsonify({'bot_response: ': botResponse})
 
 if __name__ == "__main__":
