@@ -4,17 +4,18 @@ from gpt_index import GPTSimpleVectorIndex
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/stbbot": {"origins": "*"}})
+CORS(app)
 index = GPTSimpleVectorIndex.load_from_disk('index.json')
 
 @app.route("/stbbot", methods=["POST"])
-
+@cross_origin()
 def stbbot():
     user_msg = request.json['user_msg']
     print(f'Received user message: {user_msg}')
     botResponse = ask_ai(user_msg)
     print(f'Sending bot response: {botResponse}')
     response = {'bot_response: ': botResponse}
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return jsonify({'bot_response: ': botResponse})
 
 if __name__ == "__main__":
